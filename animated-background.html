@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gradient Animation</title>
+  <style>
+    .blue-pink-gradient-animated-bg {
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(-4deg, #fca0c9 0%, #003a70 75%, #003a70 100%);
+      background-size: 400% 400%;
+      animation: gradientPulse 8s ease infinite;
+      margin: 0; /* Remove default body margin */
+      overflow: hidden; /* To make sure the gradient covers the entire body */
+    }
+
+    @keyframes gradientPulse {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="blue-pink-gradient-animated-bg">
+    <!-- Your section content goes here --->
+  </section>
+</body>
+</html>
