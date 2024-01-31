@@ -13,6 +13,7 @@
       animation: gradientPulse 8s ease infinite;
       margin: 0; /* Remove default body margin */
       overflow: hidden; /* To make sure the gradient covers the entire body */
+      background-attachment: fixed; /* Fixed background */
     }
 
     @keyframes gradientPulse {
@@ -26,11 +27,16 @@
         background-position: 0% 50%;
       }
     }
+
+    body {
+      overflow: hidden; /* Disable scrolling for the whole page */
+    }
   </style>
 </head>
 <body>
   <section class="blue-pink-gradient-animated-bg">
-    <!-- Your section content goes here --->
+    <!-- Your section content goes here -->
   </section>
 </body>
 </html>
+
