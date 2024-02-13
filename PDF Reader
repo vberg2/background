@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Booklet</title>
+  <!-- Include pdf.js and turn.js libraries -->
+  <script src="path/to/pdf.js"></script>
+  <script src="path/to/turn.js"></script>
+  <style>
+    #pdfContainer {
+      width: 100%;
+      height: 100vh;
+    }
+
+    .flipbook {
+      width: 100%;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+<div id="pdfContainer">
+  <canvas id="pdfViewer"></canvas>
+</div>
+
+<script>
+  // Load PDF using pdf.js
+  const pdfUrl = 'path/to/your.pdf';
+  const pdfContainer = document.getElementById('pdfContainer');
+  const pdfViewer = document.getElementById('pdfViewer');
+
+  // Initialize pdf.js
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'path/to/pdf.worker.js';
+
+  pdfjsLib.getDocument(pdfUrl).promise.then(pdfDoc => {
+    // Initialize flipbook
+    const flipbook = document.createElement('div');
+    flipbook.className = 'flipbook';
+    pdfContainer.appendChild(flipbook);
+
+    // Add pages to flipbook
+    for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+      const page = document.createElement('div');
+      page.className = 'page';
+      flipbook.appendChild(page);
+
+      // Render each page using pdf.js
+      pdfDoc.getPage(pageNum).then(pdfPage => {
+        const viewport = pdfPage.getViewport({ scale: 1.5 });
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+        page.appendChild(canvas);
+
+        pdfPage.render({
+          canvasContext: context,
+          viewport: viewport
+        });
+      });
+    }
+
+    // Initialize turn.js
+    $(flipbook).turn({
+      width: '100%',
+      height: '100vh',
+      autoCenter: true
+    });
+  });
+</script>
+
+</body>
+</html>
